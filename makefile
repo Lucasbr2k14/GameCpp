@@ -3,4 +3,4 @@ make:
 	GameEngine/game.cpp \
 	GameEngine/vector.cpp \
 	GameEngine/player.cpp \
-	-lSDL2
+	-lSDL2 -lSDL2_image

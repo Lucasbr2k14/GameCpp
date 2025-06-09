@@ -24,10 +24,10 @@ public:
     
     Game(int h, int w, std::string game_name);        
     
-private:
-    
     SDL_Window *window;
     SDL_Renderer *render;
+    
+private:
 
     const int frame_rate = 60; // FPS
     const int frame_delay = 1000 / frame_rate;
@@ -39,9 +39,11 @@ private:
     void createRender();
     void updateRenderer();
     void events();
-    void drawRect();
+    void createImage();
     void loop();
+    void draw();
     void exit();
+
 };
 
 

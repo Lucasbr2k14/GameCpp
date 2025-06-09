@@ -7,11 +7,13 @@ Game::Game(int h, int w, string game_name){
     this->width = w;
     this->game_name = game_name;
 
-    this->player = new Player(0,0);
-
+    
     this->initSDL();
     this->createWindow();
     this->createRender();
+
+    this->player = new Player(0,0, this->render);
+    
     this->loop();
     this->exit();
 };
@@ -37,7 +39,7 @@ bool Game::createWindow() {
         SDL_WINDOW_SHOWN
     );
 
-    if (Game::window == NULL) {
+    if (this->window == NULL) {
         cout << "Error: SDL_init: " << SDL_GetError() << endl;
         return true;
     }
@@ -54,11 +56,12 @@ void Game::createRender() {
         return;
     }
 
-    SDL_SetRenderDrawColor(this->render, 255,255,255, 255);
+    SDL_SetRenderDrawColor(this->render, 0,0,0, 255);
 };
 
 void Game::updateRenderer() {
     SDL_RenderClear(this->render);
+    this->draw();
     SDL_RenderPresent(this->render);
 }
 
@@ -75,8 +78,6 @@ void Game::events() {
     }
 };
 
-void Game::drawRect() {};
-
 void Game::loop() {
     while(Game::runing) {
 
@@ -84,15 +85,16 @@ void Game::loop() {
         
 
         this->events();
-        this->drawRect();
         this->updateRenderer();
-
 
         frame_time = SDL_GetTicks() - frame_start;
 
     }
 };
 
+void Game::draw() {
+    this->player->draw();
+}
 
 void Game::exit() {
     delete player;

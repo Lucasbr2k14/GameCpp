@@ -8,16 +8,18 @@
 #include "types.hpp"
 
 class Player {
-
-    SDL_Texture *playerText;
+private:
+    SDL_Texture *player_text;
     SDL_Surface *tmp_surface;
-
+    SDL_Renderer *gameRender;
+    
+public:
     float x,y;
     float speed;
 
-public:
+    Player(float x, float y, SDL_Renderer *render);
     void draw();
-    Player(float x, float y);
+    void createTexture();
     void walk(Direction dir);
 };
 
