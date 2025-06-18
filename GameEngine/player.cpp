@@ -37,7 +37,7 @@ void Player::createTexture() {
 void Player::walk(Direction dir) {
 
     switch (dir) {
-        case Up:    this->velocity.x -= 1; break;
+        case Up:    this->velocity.y -= 1; break;
         case Down:  this->velocity.y += 1; break;
         case Left:  this->velocity.x -= 1; break;
         case Right: this->velocity.x += 1; break;
