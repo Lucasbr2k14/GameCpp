@@ -2,15 +2,19 @@
 
 Player::Player(float x, float y, SDL_Renderer *render) {
 
-    speed = 1;
+    position = new Vec2d(x,y);
+    velocity = new Vec2d(0,0);
 
-    this->x = x;
-    this->y = y;
+    speed = 1;
 
     this->gameRender = render;
 
     this->createTexture();
 };
+
+Player::~Player() {
+    delete position, velocity;
+}
 
 void Player::createTexture() {
     this->tmp_surface = IMG_Load("Images/Ball.png");
@@ -36,18 +40,29 @@ void Player::createTexture() {
 void Player::walk(Direction dir) {
 
     switch (dir) {
-        case Up:    this->y -= this->speed; break;
-        case Down:  this->y += this->speed; break;
-        case Left:  this->x -= this->speed; break;
-        case Right: this->x += this->speed; break;
+        case Up:    this->velocity->y -= 1; break;
+        case Down:  this->velocity->y += 1; break;
+        case Left:  this->velocity->x -= 1; break;
+        case Right: this->velocity->x += 1; break;
     }
+
 };
 
 void Player::update() {
-    dest.x = this->x;
-    dest.y = this->y;
+    
+    Vec2d * unit_velocity = this->velocity->unitVector();
+    
+    this->position->x += unit_velocity->x * this->speed;
+    this->position->y += unit_velocity->y * this->speed;
+
+    dest.x = this->position->x;
+    dest.y = this->position->y;
     dest.w = 32;
     dest.h = 32;
+    
+    velocity->reset();
+    
+    delete unit_velocity;
 };
 
 void Player::draw() {

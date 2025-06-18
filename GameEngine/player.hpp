@@ -15,11 +15,15 @@ private:
     
     SDL_Rect srcR, dest;
 
+    Vec2d *position;
+    Vec2d *velocity;
+
 public:
-    float x,y;
+
     float speed;
 
     Player(float x, float y, SDL_Renderer *render);
+    ~Player();
     void createTexture();
     void walk(Direction dir);
     void update();

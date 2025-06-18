@@ -12,6 +12,7 @@ public:
     Vec2d(float x1, float y1);
     Vec2d normalize();
     Vec2d *unitVector();
+    void reset();
     float size();
     float sin();
     float cos();

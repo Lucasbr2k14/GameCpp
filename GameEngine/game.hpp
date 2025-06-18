@@ -36,6 +36,7 @@ class Game {
         void createRender();
         void updateRenderer();
         void update();
+        void keyBoard();
         void events();
         void loop();
         void draw();

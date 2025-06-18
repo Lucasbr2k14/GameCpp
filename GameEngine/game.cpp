@@ -76,20 +76,31 @@ void Game::events() {
         if (event.type == SDL_QUIT) {
             this->runing = false;
         }
-
-        if (event.type == SDL_KEYDOWN) {
-            short key_code = event.key.keysym.sym;
-            
-            if (key_code == SDLK_w) this->player->walk(Direction::Up);
-            if (key_code == SDLK_s) this->player->walk(Direction::Down);
-            if (key_code == SDLK_d) this->player->walk(Direction::Right);
-            if (key_code == SDLK_a) this->player->walk(Direction::Left);
-
-        }
-
     }
 
 };
+
+void Game::keyBoard() {
+    const Uint8 *key_state = SDL_GetKeyboardState(NULL);
+    
+    if (key_state[SDL_SCANCODE_W]) {
+        this->player->walk(Direction::Up);
+    }
+
+    if (key_state[SDL_SCANCODE_S]) {
+        this->player->walk(Direction::Down);
+    }
+
+    if (key_state[SDL_SCANCODE_D]) {
+        this->player->walk(Direction::Right);
+    }
+
+    if (key_state[SDL_SCANCODE_A]) {
+        this->player->walk(Direction::Left);
+    }
+
+}
+
 
 void Game::loop() {
     while(Game::runing) {
@@ -97,6 +108,7 @@ void Game::loop() {
         frame_start = SDL_GetTicks(); 
 
         this->events();
+        this->keyBoard();    
 
         this->update();
 
