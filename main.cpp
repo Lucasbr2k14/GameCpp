@@ -1,6 +1,6 @@
 #include "GameEngine/game.hpp"
 
-int main(int argc, char **args) {
+int main() {
 
     Game *game = new Game(1280, 720, "Meu Joguinho");
 

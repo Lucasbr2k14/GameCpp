@@ -8,26 +8,26 @@
 #include "types.hpp"
 
 class Player {
-private:
-    SDL_Texture *player_text;
-    SDL_Surface *tmp_surface;
-    SDL_Renderer *gameRender;
-    
-    SDL_Rect srcR, dest;
+    private:
+        SDL_Texture *player_text;
+        SDL_Surface *tmp_surface;
+        SDL_Renderer *gameRender;
+        
+        SDL_Rect srcR, dest;
 
-    Vec2d *position;
-    Vec2d *velocity;
+        Vec2d position;
+        Vec2d velocity;
 
-public:
+    public:
 
-    float speed;
+        float speed;
 
-    Player(float x, float y, SDL_Renderer *render);
-    ~Player();
-    void createTexture();
-    void walk(Direction dir);
-    void update();
-    void draw();
+        Player(float x, float y, SDL_Renderer *render);
+        ~Player();
+        void createTexture();
+        void walk(Direction dir);
+        void update();
+        void draw();
 };
 
 #endif /*PLAYER_HPP*/

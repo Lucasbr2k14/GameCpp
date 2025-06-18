@@ -1,11 +1,8 @@
 #include "game.hpp"
 
-Player::Player(float x, float y, SDL_Renderer *render) {
+Player::Player(float x, float y, SDL_Renderer *render): position(x,y), velocity(0,0){
 
-    position = new Vec2d(x,y);
-    velocity = new Vec2d(0,0);
-
-    speed = 1;
+    speed = 2;
 
     this->gameRender = render;
 
@@ -13,7 +10,7 @@ Player::Player(float x, float y, SDL_Renderer *render) {
 };
 
 Player::~Player() {
-    delete position, velocity;
+
 }
 
 void Player::createTexture() {
@@ -40,29 +37,26 @@ void Player::createTexture() {
 void Player::walk(Direction dir) {
 
     switch (dir) {
-        case Up:    this->velocity->y -= 1; break;
-        case Down:  this->velocity->y += 1; break;
-        case Left:  this->velocity->x -= 1; break;
-        case Right: this->velocity->x += 1; break;
+        case Up:    this->velocity.x -= 1; break;
+        case Down:  this->velocity.y += 1; break;
+        case Left:  this->velocity.x -= 1; break;
+        case Right: this->velocity.x += 1; break;
     }
 
 };
 
 void Player::update() {
     
-    Vec2d * unit_velocity = this->velocity->unitVector();
-    
-    this->position->x += unit_velocity->x * this->speed;
-    this->position->y += unit_velocity->y * this->speed;
+    velocity = this->velocity.unitVector() * this->speed;
+    this->position += velocity;
 
-    dest.x = this->position->x;
-    dest.y = this->position->y;
-    dest.w = 32;
-    dest.h = 32;
+    dest.x = this->position.x;
+    dest.y = this->position.y;
+    dest.w = 64;
+    dest.h = 64;
     
-    velocity->reset();
+    this->velocity.reset();
     
-    delete unit_velocity;
 };
 
 void Player::draw() {

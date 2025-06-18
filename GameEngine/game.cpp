@@ -1,6 +1,5 @@
 #include "game.hpp"
 
-
 Game::Game(int h, int w, std::string game_name){
     this->heigth = h;
     this->width = w;
@@ -82,23 +81,19 @@ void Game::events() {
 
 void Game::keyBoard() {
     const Uint8 *key_state = SDL_GetKeyboardState(NULL);
-    
-    if (key_state[SDL_SCANCODE_W]) {
+
+    if (key_state[SDL_SCANCODE_W]) 
         this->player->walk(Direction::Up);
-    }
 
-    if (key_state[SDL_SCANCODE_S]) {
+    if (key_state[SDL_SCANCODE_S]) 
         this->player->walk(Direction::Down);
-    }
-
-    if (key_state[SDL_SCANCODE_D]) {
+    
+    if (key_state[SDL_SCANCODE_D]) 
         this->player->walk(Direction::Right);
-    }
 
-    if (key_state[SDL_SCANCODE_A]) {
+    if (key_state[SDL_SCANCODE_A]) 
         this->player->walk(Direction::Left);
-    }
-
+    
 }
 
 
@@ -119,7 +114,6 @@ void Game::loop() {
         if (frame_delay > frame_time) {
             SDL_Delay(frame_delay - frame_time);
         }
-    
     }
 };
 

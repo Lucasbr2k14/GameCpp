@@ -8,6 +8,7 @@
 
 #include "vector.hpp"
 #include "player.hpp"
+#include "sprite.hpp"
 
 class Game {
 
