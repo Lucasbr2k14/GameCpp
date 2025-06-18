@@ -13,14 +13,17 @@ private:
     SDL_Surface *tmp_surface;
     SDL_Renderer *gameRender;
     
+    SDL_Rect srcR, dest;
+
 public:
     float x,y;
     float speed;
 
     Player(float x, float y, SDL_Renderer *render);
-    void draw();
     void createTexture();
     void walk(Direction dir);
+    void update();
+    void draw();
 };
 
 #endif /*PLAYER_HPP*/

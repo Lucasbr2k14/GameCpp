@@ -11,39 +11,35 @@
 
 class Game {
 
+    public:
+        bool runing = true;
+        int heigth;
+        int width;
 
-public:
-    bool runing = true;
-    int heigth;
-    int width;
+        Player *player;
+        
+        std::string game_name;
 
-    Player *player;
-    
-    std::string game_name;
+        SDL_Window *window;
+        SDL_Renderer *render;
 
-    
-    Game(int h, int w, std::string game_name);        
-    
-    SDL_Window *window;
-    SDL_Renderer *render;
-    
-private:
+        Game(int h, int w, std::string game_name);        
+        
+    private:
+        const int frame_rate = 60; // FPS
+        const int frame_delay = 1000 / frame_rate;
+        Uint32 frame_start;
+        int frame_time;
 
-    const int frame_rate = 60; // FPS
-    const int frame_delay = 1000 / frame_rate;
-    Uint32 frame_start;
-    int frame_time;
-
-    bool initSDL();
-    bool createWindow();
-    void createRender();
-    void updateRenderer();
-    void events();
-    void createImage();
-    void loop();
-    void draw();
-    void exit();
-
+        bool initSDL();
+        bool createWindow();
+        void createRender();
+        void updateRenderer();
+        void update();
+        void events();
+        void loop();
+        void draw();
+        void exit();
 };
 
 

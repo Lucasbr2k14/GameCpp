@@ -1,18 +1,16 @@
 #include "game.hpp"
 
-using namespace std;
 
-Game::Game(int h, int w, string game_name){
+Game::Game(int h, int w, std::string game_name){
     this->heigth = h;
     this->width = w;
     this->game_name = game_name;
-
-    
+  
     this->initSDL();
     this->createWindow();
     this->createRender();
 
-    this->player = new Player(0,0, this->render);
+    this->player = new Player((1280/2),0, this->render);
     
     this->loop();
     this->exit();
@@ -22,12 +20,12 @@ bool Game::initSDL() {
     int init = SDL_Init(SDL_INIT_EVERYTHING);
     
     if (init < 0) {
-        cout << "Error: SDL_Init " << SDL_GetError() << endl;
+        std::cout << "Error: SDL_Init " << SDL_GetError() << std::endl;
         return true;
     }
     
     return false;
-}
+};
 
 bool Game::createWindow() {
 
@@ -40,7 +38,7 @@ bool Game::createWindow() {
     );
 
     if (this->window == NULL) {
-        cout << "Error: SDL_init: " << SDL_GetError() << endl;
+        std::cout << "Error: SDL_init: " << SDL_GetError() << std::endl;
         return true;
     }
 
@@ -52,7 +50,7 @@ void Game::createRender() {
     this->render = SDL_CreateRenderer(this->window, -1, 0);
 
     if (this->render == NULL) {
-        cout << "Error: SDL_CreateRender: " << SDL_GetError() << endl;
+        std::cout << "Error: SDL_CreateRender: " << SDL_GetError() << std::endl;
         return;
     }
 
@@ -63,7 +61,11 @@ void Game::updateRenderer() {
     SDL_RenderClear(this->render);
     this->draw();
     SDL_RenderPresent(this->render);
-}
+};
+
+void Game::update() {
+    this->player->update();
+};
 
 void Game::events() {
 
@@ -75,26 +77,43 @@ void Game::events() {
             this->runing = false;
         }
 
+        if (event.type == SDL_KEYDOWN) {
+            short key_code = event.key.keysym.sym;
+            
+            if (key_code == SDLK_w) this->player->walk(Direction::Up);
+            if (key_code == SDLK_s) this->player->walk(Direction::Down);
+            if (key_code == SDLK_d) this->player->walk(Direction::Right);
+            if (key_code == SDLK_a) this->player->walk(Direction::Left);
+
+        }
+
     }
+
 };
 
 void Game::loop() {
     while(Game::runing) {
 
-        frame_start = SDL_GetTicks();
-        
+        frame_start = SDL_GetTicks(); 
 
         this->events();
+
+        this->update();
+
         this->updateRenderer();
 
         frame_time = SDL_GetTicks() - frame_start;
-
+    
+        if (frame_delay > frame_time) {
+            SDL_Delay(frame_delay - frame_time);
+        }
+    
     }
 };
 
 void Game::draw() {
     this->player->draw();
-}
+};
 
 void Game::exit() {
     delete player;

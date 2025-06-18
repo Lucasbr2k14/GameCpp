@@ -2,7 +2,7 @@
 
 Player::Player(float x, float y, SDL_Renderer *render) {
 
-    speed = 0.5;
+    speed = 1;
 
     this->x = x;
     this->y = y;
@@ -10,7 +10,7 @@ Player::Player(float x, float y, SDL_Renderer *render) {
     this->gameRender = render;
 
     this->createTexture();
-}
+};
 
 void Player::createTexture() {
     this->tmp_surface = IMG_Load("Images/Ball.png");
@@ -31,22 +31,32 @@ void Player::createTexture() {
         return;
     }
 
-}
+};
 
 void Player::walk(Direction dir) {
+
     switch (dir) {
-        case Up: this->y -= this->speed; break;
-        case Down: this->y += this->speed; break;
-        case Left: this->x += this->speed; break;
-        case Right: this->x -= this->speed; break;
+        case Up:    this->y -= this->speed; break;
+        case Down:  this->y += this->speed; break;
+        case Left:  this->x -= this->speed; break;
+        case Right: this->x += this->speed; break;
     }
-}
+};
+
+void Player::update() {
+    dest.x = this->x;
+    dest.y = this->y;
+    dest.w = 32;
+    dest.h = 32;
+};
 
 void Player::draw() {
+
     SDL_RenderCopy(
         this->gameRender, 
         this->player_text,
         NULL,
-        NULL
+        &dest
     );
-}
+
+};
