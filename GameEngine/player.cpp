@@ -2,16 +2,14 @@
 
 Player::Player(float x, float y, SDL_Renderer *render): position(x,y), velocity(0,0){
 
-    speed = 2;
+    speed = 1;
 
     this->gameRender = render;
 
     this->createTexture();
 };
 
-Player::~Player() {
-
-}
+Player::~Player() { }
 
 void Player::createTexture() {
     this->tmp_surface = IMG_Load("Images/Ball.png");
@@ -30,8 +28,7 @@ void Player::createTexture() {
         std::cout << SDL_GetError() << std::endl;
         SDL_FreeSurface(tmp_surface);
         return;
-    }
-
+    } 
 };
 
 void Player::walk(Direction dir) {
@@ -52,8 +49,8 @@ void Player::update() {
 
     dest.x = this->position.x;
     dest.y = this->position.y;
-    dest.w = 64;
-    dest.h = 64;
+    dest.w = 120;
+    dest.h = 120;
     
     this->velocity.reset();
     

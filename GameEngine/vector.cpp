@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-Vec2d::Vec2d(float x1, float y1){
+Vec2d::Vec2d(float x1 = 0.0f, float y1 = 0.0f){
     x = x1;
     y = y1;
 };

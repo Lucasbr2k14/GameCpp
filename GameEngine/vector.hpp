@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+// - + / // * += -= && || !
+
 class Vec2d {
 
     public:
@@ -27,9 +29,6 @@ class Vec2d {
         float tg();
         float angle();
         std::string show();
-
-
-
 
 
 };
